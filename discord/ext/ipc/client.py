@@ -37,6 +37,12 @@ class Client:
         self.multicast = None
 
         self.multicast_port = multicast_port
+        
+    async def __aenter__(self):
+        return self
+    
+    async def __aexit__(self, *exc_info):
+        return await self.session.__aexit__(*exc_info)
 
     @property
     def url(self):
